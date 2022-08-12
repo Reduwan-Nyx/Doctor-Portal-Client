@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
-const PrimaryButton = ({children}) => {
-    return (
-     
-             <button class="btn btn-primary">{children}</button>
-        
-    );
+const PrimaryButton = ({ children }) => {
+  return <button className="btn btn-primary">{children}</button>;
 };
 
 export default PrimaryButton;
