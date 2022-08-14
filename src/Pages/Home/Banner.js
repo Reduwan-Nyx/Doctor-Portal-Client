@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import banner from "../../assets/images/chair.png";
 import PrimaryButton from "../Shared/PrimaryButton";
 const Banner = () => {
@@ -23,7 +24,7 @@ Open Sans"
             compliance with the organization’s guidelines, offering valuable
             statistics.
           </p>
-          <PrimaryButton>Get Started</PrimaryButton>
+          <PrimaryButton><Link to="/appointment">Get Started</Link></PrimaryButton>
         </div>
       </div>
     </div>
