@@ -1,26 +1,24 @@
 import React from "react";
-import { toast} from 'react-toastify';
-const DeleteConfirm = ({deletingDoctor, refetch, setDeleteingDoctor}) => {
-    const {name, email} = deletingDoctor
-    const handleDelete = () =>{
-        fetch(`http://localhost:5000/doctor/${email}`, {
-            method: 'DELETE',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                
-            }
-            
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if(data.deletedCount){
-                toast.success(`Doctor: ${name} is Deleted`)
-                setDeleteingDoctor(null)
-                refetch();
-            }
-        })
-      }
+import { toast } from "react-toastify";
+const DeleteConfirm = ({ deletingDoctor, refetch, setDeleteingDoctor }) => {
+  const { name, email } = deletingDoctor;
+  const handleDelete = () => {
+    fetch(`https://agile-depths-16235.herokuapp.com/doctor/${email}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.deletedCount) {
+          toast.success(`Doctor: ${name} is Deleted`);
+          setDeleteingDoctor(null);
+          refetch();
+        }
+      });
+  };
   return (
     <div>
       <input type="checkbox" id="delete-confirm-modal" class="modal-toggle" />
@@ -34,7 +32,9 @@ const DeleteConfirm = ({deletingDoctor, refetch, setDeleteingDoctor}) => {
             use Wikipedia for free!
           </p>
           <div class="modal-action">
-          <button onClick={() => handleDelete()} class="btn btn-xs btn-error">Delete</button>
+            <button onClick={() => handleDelete()} class="btn btn-xs btn-error">
+              Delete
+            </button>
             <label for="delete-confirm-modal" class="btn btn-xs">
               Close
             </label>

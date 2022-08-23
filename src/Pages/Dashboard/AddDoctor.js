@@ -2,65 +2,64 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import Loading from "../Shared/Loading";
-import { toast} from 'react-toastify';
+import { toast } from "react-toastify";
 
 const AddDoctor = () => {
   const {
     register,
     formState: { errors },
-    handleSubmit, reset
+    handleSubmit,
+    reset,
   } = useForm();
 
   const { data: services, isLoading } = useQuery("services", () =>
-    fetch("http://localhost:5000/service").then((res) => res.json())
+    fetch("https://agile-depths-16235.herokuapp.com/service").then((res) =>
+      res.json()
+    )
   );
 
-  const imageStorageKey = '10e83300c088f076df96f1e13a3d4ea8';
-
-
+  const imageStorageKey = "10e83300c088f076df96f1e13a3d4ea8";
 
   const onSubmit = async (data) => {
     const image = data.image[0];
     const formData = new FormData();
-    formData.append('image', image)
+    formData.append("image", image);
     const url = `https://api.imgbb.com/1/upload?key=${imageStorageKey}`;
     fetch(url, {
-        method: 'POST',
-        body: formData
+      method: "POST",
+      body: formData,
     })
-    .then(res => res.json())
-    .then(result => {
-        if(result.success){
-            const img = result.data.url;
-            const doctor = {
-                name: data.name,
-                email: data.email,
-                specialty: data.specialty,
-                img: img
-
-            }
-            // send to your database
-            fetch('http://localhost:5000/doctor', {
-                method: 'POST',
-                headers: {
-                  'content-type':  'application/json',
-                  authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                },
-                body: JSON.stringify(doctor)
-            })
-            .then(res => res.json())
-            .then(inserted => {
-             if(inserted.insertedId){
-                toast.success('Doctor Added Succesfully')
-                reset()
-             }
-             else{
-                toast.error('Faild to Add Doctor')
-             }
-            })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          const img = result.data.url;
+          const doctor = {
+            name: data.name,
+            email: data.email,
+            specialty: data.specialty,
+            img: img,
+          };
+          // send to your database
+          fetch("https://agile-depths-16235.herokuapp.com/doctor", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(doctor),
+          })
+            .then((res) => res.json())
+            .then((inserted) => {
+              if (inserted.insertedId) {
+                toast.success("Doctor Added Succesfully");
+                reset();
+              } else {
+                toast.error("Faild to Add Doctor");
+              }
+            });
         }
-        console.log('image db result' ,result);
-    })
+        console.log("image db result", result);
+      });
   };
 
   if (isLoading) {
@@ -134,15 +133,15 @@ const AddDoctor = () => {
           <label className="label">
             <span className="label-text ">Specialty</span>
           </label>
-          <select {...register('specialty')} class="select border-orange-500 mb-5 w-full max-w-xs font-mono">
-           
-           {
-            services.map(service =>  <option
-            key={service._id}
-            value={service.name}
-            >{service.name}</option>)
-           }
-          
+          <select
+            {...register("specialty")}
+            class="select border-orange-500 mb-5 w-full max-w-xs font-mono"
+          >
+            {services.map((service) => (
+              <option key={service._id} value={service.name}>
+                {service.name}
+              </option>
+            ))}
           </select>
         </div>
 
