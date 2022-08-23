@@ -31,7 +31,7 @@ const Dashboard = () => {
             <Link to="/dashboard">My Appointments <span><GiPlagueDoctorProfile></GiPlagueDoctorProfile></span></Link>
           </li>
           <li>
-            <Link to="/dashboard/review">My Reviews <span><MdReviews></MdReviews></span></Link>
+            <Link to="/dashboard/myreviews">My Reviews <span><MdReviews></MdReviews></span></Link>
           </li>
           <li>
             <Link to="/dashboard/history">My History <span><BsClockHistory></BsClockHistory></span></Link>

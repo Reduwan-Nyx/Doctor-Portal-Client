@@ -18,6 +18,10 @@ import RequireAdmin from './Pages/Login/RequireAdmin';
 import AddDoctor from './Pages/Dashboard/AddDoctor';
 import ManageDoctors from './Pages/Dashboard/ManageDoctors';
 import Payment from './Pages/Dashboard/Payment';
+import Reviews from './Pages/Home/Reviews';
+
+
+
 function App() {
   return (
     <div className='max-w-7xl mx-auto'>
@@ -25,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home></Home>} />
         <Route path="about" element={<About />} />
+        <Route path='reviews' element={<Reviews></Reviews>}></Route>
         <Route path="appointment" element={<RequireAuth>
           <Appointment></Appointment>
         </RequireAuth>} /> 
@@ -33,7 +38,8 @@ function App() {
           <Dashboard></Dashboard>
         </RequireAuth>} >
           <Route index element={<MyAppointment></MyAppointment>}></Route>
-          <Route path='review' element={<MyReview></MyReview>}></Route>
+          <Route path='myreviews' element={<MyReview></MyReview>}></Route> 
+         
           <Route path='history' element={<MyHistory></MyHistory>}></Route>
           <Route path='payment/:id' element={<Payment></Payment>}></Route>
           <Route path='users' element={<RequireAdmin>
